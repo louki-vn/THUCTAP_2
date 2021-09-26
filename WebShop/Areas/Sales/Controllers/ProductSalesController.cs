@@ -36,8 +36,7 @@ namespace WebShop.Areas.Sales.Controllers
                 data.GetItemInCart(itemincartlist, HttpContext.Application["user_logined"].ToString());
                 ViewBag.ItemInCart = itemincartlist;
                 ViewBag.Number = itemincartlist.Count();
-            }
-            
+            }            
 
             return View(productpluslist);
         }

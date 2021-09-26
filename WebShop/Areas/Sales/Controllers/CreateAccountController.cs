@@ -43,7 +43,7 @@ namespace WebShop.Areas.Sales.Controllers
                 var phonevar = new SqlParameter("@phone", phone);
                 var addressvar = new SqlParameter("@address", address);
                 var result2 = db.Database.ExecuteSqlCommand("exec createaccount @username, @name, @password, @phone, @address", username2var, namevar, passvar, phonevar, addressvar);
-                return View("~/Areas/Sales/Views/HomeSales/Home.cshtml", product1list);
+                return RedirectToAction("Home", "HomeSales", new { area = "Sales" });
             }
         }
 

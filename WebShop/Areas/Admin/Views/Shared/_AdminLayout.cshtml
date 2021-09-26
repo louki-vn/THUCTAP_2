@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = null;    
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -20,9 +20,7 @@
     <link rel="stylesheet" href="~/Asset/assets/css/bootstrap.min.css">
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="~/Asset/assets/css/style.css">
-    <link rel="stylesheet" href="~/Asset/assets/css/responsive.css">
-
-
+    <link rel="stylesheet" href="~/Asset/assets/css/responsive.css">    
 
     <!-- Title Page-->
     <title>Dashboard</title>
@@ -53,12 +51,12 @@
         <img src="~/Asset/assets/images/loader.gif" alt="Loading..." />
     </div>
     <div class="pageWrapper">
-       
+
         <!--Top Header-->
         <div class="top-header home8-jewellery-top">
             <div class="container-fluid">
-                <div class="row" >
-                    <div class="col-sm-12 col-md-12 col-lg-12 d-none d-lg-none d-md-block d-lg-block" >
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 d-none d-lg-none d-md-block d-lg-block">
                         <div class="text-center"><p class="top-header_middle-text"> Quản Lý Hệ Thống</p></div>
                     </div>
                 </div>
@@ -66,17 +64,17 @@
         </div>
         <!--End Top Header-->
         <!--Header-->
-        <div class="header-wrap animated d-flex border-bottom">
+        <div class="header-wrap animated d-flex">
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <!--Desktop Logo-->
                     <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
-                        <a href="@Url.Action("Index", null, new { area = "Admin", controller = "HomeAdmin"}, Request.Url.Scheme)">
-                            <img src="~/Asset/admin/images/admin-login-sign-made-wood-table_292052-431.jpg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
+                        <a href="@Url.Action("Home", "HomeSales", new { area = "Sales" })">
+                            <img src="/Asset/assets/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
                         </a>
                     </div>
                     <!--End Desktop Logo-->
-                    <div class="col-2 col-sm-2 col-md-3 col-lg-9">
+                    <div class="col-2 col-sm-3 col-md-3 col-lg-8">
                         <div class="d-block d-lg-none">
                             <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
                                 <i class="icon anm anm-times-l"></i>
@@ -84,84 +82,99 @@
                             </button>
                         </div>
                         <!--Desktop Menu-->
-                        <nav class="grid__item" id="AccessibleNav">
+                        <nav class="grid__item" id="AccessibleNav" role="navigation">
                             <!-- for mobile -->
                             <ul id="siteNav" class="site-nav medium center hidearrow">
-                                <li class="lvl1">
-                                    <a href="@Url.Action("Index", null, new { area = "Admin", controller = "HomeAdmin"}, Request.Url.Scheme)">Trang chủ <i class="anm anm-angle-down-l"></i></a>
+                                <li class="lvl1 parent megamenu">
+                                    <a href="@Url.Action("Index", "HomeAdmin", new { area = "Admin" })" id="1">Trang chủ <i class="anm anm-angle-down-l"></i></a>
                                 </li>
-                                <li class="lvl1 ">
-                                    <a href="@Url.Action("Index", null, new { area = "Admin", controller = "Category"}, Request.Url.Scheme)">Danh mục <i class="anm anm-angle-down-l"></i></a>
+                                <li class="lvl1 parent megamenu">
+                                    <a href="@Url.Action("Index", "Category", new { area = "Admin" })">Danh mục <i class="anm anm-angle-down-l"></i></a>
                                 </li>
-                                <li class="lvl1 ">
-                                    <a href="@Url.Action("Index", null, new { area = "Admin", controller = "UserData"}, Request.Url.Scheme)">Dữ liệu người dùng<i class="anm anm-angle-down-l"></i></a>
+                                <li class="lvl1 parent dropdown">
+                                    <a href="@Url.Action("Index", "ProductAdmin", new { area = "Admin" })">Sản phẩm<i class="anm anm-angle-down-l"></i></a>
                                 </li>
-                                <li class="lvl1 ">
-                                    <a href="@Url.Action("Index", null, new { area = "Admin", controller = "Order"}, Request.Url.Scheme)">Đơn hàng <i class="anm anm-angle-down-l"></i></a>
+                                <li class="lvl1 parent dropdown">
+                                    <a href="@Url.Action("Index", "Order", new { area = "Admin" })">Đơn hàng <i class="anm anm-angle-down-l"></i></a>
                                 </li>
-                                <li class="lvl1">
-                                    <a href="@Url.Action("Index", null, new { area = "Admin", controller = "ProductAdmin"}, Request.Url.Scheme)"><b>Sản phẩm</b> <i class="anm anm-angle-down-l"></i></a>
-                                </li>
+                                <li class="lvl1 parent dropdown">
+                                    <a href="@Url.Action("Index", "UserData", new { area = "Admin" })">Dữ liệu người dùng<i class="anm anm-angle-down-l"></i></a>
+
                             </ul>
                         </nav>
                         <!--End Desktop Menu-->
                     </div>
-                    <!--Mobile Logo-->
-                    <div class="col-4 col-sm-2 col-md-3 col-lg-1">
-                        <div class="header-button">                          
-                            <div class="account-wrap">
-                                <div class="account-item clearfix js-item-menu">
-                                    <div class="image">
-                                        <img src="/Asset/admin/images/icon/avatar-01.jpg" alt="John Doe" />
-                                    </div>
-                                    <div class="content">
-                                        <a class="js-acc-btn" href="#">@ViewBag.user_logined</a>
-                                    </div>
-                                    <div class="account-dropdown js-dropdown">
-                                        <div class="info clearfix">
-                                            <div class="image">
-                                                <a href="#">
-                                                    <img src="/Asset/admin/images/icon/avatar-01.jpg" alt="John Doe" />
-                                                </a>
-                                            </div>
-                                            <div class="content">
-                                                <h5 class="name">
-                                                    <a href="#">@ViewBag.user_logined</a>
-                                                </h5>
-                                                <span class="email"></span>
-                                            </div>
-                                        </div>
-                                        <div class="account-dropdown__body">
-                                            <div class="account-dropdown__item">
-                                                <a href="@Url.Action("UserInfor", null, new { area = "Admin", controller = "UserData"}, Request.Url.Scheme)">
-                                                    <i class="zmdi zmdi-account"></i>Account
-                                                </a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-settings"></i>Setting
-                                                </a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-money-box"></i>Billing
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="account-dropdown__footer">
-                                            <a href="@Url.Action("Login", null, new { area = "Sales", controller = "Login" }, Request.Url.Scheme)">
-                                                <i class="zmdi zmdi-power"></i>Logout
+                    <div class="col-2 col-sm-3 col-md-3 col-lg-2 d-none d-lg-block">
+                        <div class="account-wrap">
+                            <div class="account-item account-item--style2 clearfix js-item-menu">
+                                <div class="image">
+                                    <img src="/Asset/admin/images/icon/avatar-01.jpg" alt="John Doe" />
+                                </div>
+                                <div class="content">
+                                    <a class="js-acc-btn" href="#">john doe</a>
+                                </div>
+                                <div class="account-dropdown js-dropdown">
+                                    <div class="info clearfix">
+                                        <div class="image">
+                                            <a href="#">
+                                                <img src="/Asset/admin/images/icon/avatar-01.jpg" alt="John Doe" />
                                             </a>
                                         </div>
+                                        <div class="content">
+                                            <h5 class="name">
+                                                <a href="#">john doe</a>
+                                            </h5>
+                                            <span class="email">johndoe@example.com</span>
+                                        </div>
+                                    </div>
+                                    <div class="account-dropdown__body">
+                                        <div class="account-dropdown__item">
+                                            <a href="#">
+                                                <i class="zmdi zmdi-account"></i>Account
+                                            </a>
+                                        </div>
+                                        <div class="account-dropdown__item">
+                                            <a href="#">
+                                                <i class="zmdi zmdi-settings"></i>Setting
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="account-dropdown__footer">
+                                        <a href="@Url.Action("Logout", "Login", new { area = "Sales"})">
+                                            <i class="zmdi zmdi-power"></i>Logout
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
         <!--End Header-->
+        <!--Menu nhỏ -->
+        <div class="mobile-nav-wrapper" role="navigation">
+            <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
+            <ul id="MobileNav" class="mobile-nav">
+                <li class="lvl1 parent megamenu">
+                    <a href="@Url.Action("Index", "HomeAdmin", new { area = "Admin" })">Trang chủ <i class="anm anm-plus-l"></i></a>
+                </li>
+                <li class="lvl1 parent megamenu">
+                    <a href="#">Danh mục <i class="anm anm-plus-l"></i></a>
+                </li>
+                <li class="lvl1 parent megamenu">
+                    <a href="product-layout-1.html">Sản phẩm <i class="anm anm-plus-l"></i></a>
+                </li>
+                <li class="lvl1 parent megamenu">
+                    <a href="product-layout-1.html">Đơn hàng <i class="anm anm-plus-l"></i></a>
+                </li>
+                <li class="lvl1 parent megamenu">
+                    <a href="blog-left-sidebar.html">Dữ liệu người dùng <i class="anm anm-plus-l"></i></a>
+                </li>
+            </ul>
+        </div>
+        <!--End Menu nhỏ-->
         <!--Body Content-->
         <div id="page-content">
 
@@ -172,7 +185,6 @@
         <footer id="footer" class="footer-3">
             <div class="site-footer">
                 <div class="container">
-                    <hr>
                     <div class="footer-bottom">
                         <div class="row">
                             <!--Footer Copyright-->
@@ -186,8 +198,7 @@
         <!--End Footer-->
         <!--Scoll Top-->
         <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
-        <!--End Scoll Top-->   
-     
+        <!--End Scoll Top-->
         <!-- Including Jquery -->
         <script src="~/Asset/assets/js/vendor/jquery-3.3.1.min.js"></script>
         <script src="~/Asset/assets/js/vendor/modernizr-3.6.0.min.js"></script>
@@ -220,5 +231,5 @@
     </div>
 </body>
 
-<!-- belle/home6-modern.html   11 Nov 2019 12:28:16 GMT -->
+
 </html>

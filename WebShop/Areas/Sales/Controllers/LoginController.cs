@@ -35,34 +35,34 @@ namespace WebShop.Areas.Sales.Controllers
                 ViewBag.user_logined = HttpContext.Application["user_logined"];
                 ViewBag.is_logined = HttpContext.Application["is_logined"];
 
-                int doda = 2;
-                var id_var = new SqlParameter("@group_id", doda);
-                var result_product = db.Database.SqlQuery<PRODUCT>("exec get_product_from_PRODUCT_GROUP @group_id", id_var).ToList();
-                int qty = result_product.Count();
-                List<PRODUCT> product1list = new List<PRODUCT>();
-                List<PRODUCT_Plus> productpluslist = new List<PRODUCT_Plus>();
+                //int doda = 2;
+                //var id_var = new SqlParameter("@group_id", doda);
+                //var result_product = db.Database.SqlQuery<PRODUCT>("exec get_product_from_PRODUCT_GROUP @group_id", id_var).ToList();
+                //int qty = result_product.Count();
+                //List<PRODUCT> product1list = new List<PRODUCT>();
+                //List<PRODUCT_Plus> productpluslist = new List<PRODUCT_Plus>();
 
-                for (int i = 0; i < qty; i++)
-                {
-                    product1list.Add(result_product[i]);
-                }
-                ViewBag.qty = qty;
-                Mix_PRODUCT_And_PRODUCT_Plus(product1list, productpluslist);
+                //for (int i = 0; i < qty; i++)
+                //{
+                //    product1list.Add(result_product[i]);
+                //}
+                //ViewBag.qty = qty;
+                //Mix_PRODUCT_And_PRODUCT_Plus(product1list, productpluslist);
 
-                if (HttpContext.Application["is_logined"].ToString() == "1")
-                {
-                    Models.Data data = new Models.Data();
-                    List<ItemInCart> itemincartlist = new List<ItemInCart>();
-                    data.GetItemInCart(itemincartlist, HttpContext.Application["user_logined"].ToString());
-                    ViewBag.ItemInCart = itemincartlist;
-                    ViewBag.Number = itemincartlist.Count();
-                }
+                //if (HttpContext.Application["is_logined"].ToString() == "1")
+                //{
+                //    Models.Data data = new Models.Data();
+                //    List<ItemInCart> itemincartlist = new List<ItemInCart>();
+                //    data.GetItemInCart(itemincartlist, HttpContext.Application["user_logined"].ToString());
+                //    ViewBag.ItemInCart = itemincartlist;
+                //    ViewBag.Number = itemincartlist.Count();
+                //}
 
                 if (result[0].role == 0)
                 {
-                    return View("~/Areas/Admin/Views/HomeAdmin/Index.cshtml");
+                    return RedirectToAction("Index", "HomeAdmin", new { area = "Admin" });
                 }
-                return View("~/Areas/Sales/Views/HomeSales/Home.cshtml", productpluslist);
+                return RedirectToAction("Home", "HomeSales", new { area = "Sales" });
             }
             else
             {

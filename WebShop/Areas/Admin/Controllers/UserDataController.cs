@@ -16,7 +16,7 @@ namespace WebShop.Areas.Admin.Controllers
             var result = db.MEMBERs.ToList();
             return View(result);
         }
-
+        
         public ActionResult UserInfor()
         {
             ViewBag.user_logined = HttpContext.Application["user_logined"];
