@@ -1,0 +1,218 @@
+﻿@model IEnumerable<WebShop.Models.ItemInCart>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Sales/Views/Shared/_Layout.cshtml";
+}
+@{
+    if (ViewBag.is_logined == 1)
+    {
+        <!--Body Content-->
+        <div id="page-content">
+            <!--Page Title-->
+            <div class="page section-header text-center">
+                <div class="page-title">
+                    <div class="wrapper"><h1 class="page-width">Giỏ hàng</h1></div>
+                </div>
+            </div>
+            <!--End Page Title-->
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                        <div class="alert alert-success text-uppercase" role="alert">
+                            <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Chúc mừng!</strong> Bạn được hưởng ưu đãi vận chuyển!
+                        </div>
+                        <form action="#" method="post" class="cart style2">
+                            <table>
+                                <thead class="cart__row cart__header">
+                                    <tr>
+                                        <th colspan="2" class="text-center">Sản phẩm</th>
+                                        <th class="text-center">Giá</th>
+                                        <th class="text-center">Số lượng</th>
+                                        <th class="text-right">Tổng tiền</th>
+                                        <th class="action">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (var a in Model)
+                                        {
+                                            <div class="cart_item_show">
+                                                <tr class="cart__row border-bottom line1 cart-flex border-top">
+                                                    <td class="cart__image-wrapper cart-flex-item">
+                                                        <a href="@Url.Action("Product_Detail", "ProductSales", new { area = "Sales", product_id=@a.product_id })"><img class="cart__image" src="@a.image_link.ToString()" alt="Elastic Waist Dress - Navy / Small"></a>
+                                                    </td>
+                                                    <td class="cart__meta small--text-left cart-flex-item">
+                                                        <div class="list-view-item__title">
+                                                            <a href="@Url.Action("Product_Detail", "ProductSales", new { area = "Sales", product_id=@a.product_id })">@a.name </a>
+                                                        </div>
+
+                                                        <div class="cart__meta-text">
+                                                            Size: @a.size
+                                                        </div>
+                                                    </td>
+                                                    <td class="cart__price-wrapper cart-flex-item">
+                                                        <span class="money">@a.price VND</span>
+                                                    </td>
+                                                    <td class="cart__update-wrapper cart-flex-item text-right">
+                                                        <div class="cart__qty text-center">
+                                                            <div class="qtyField">
+                                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon icon-minus"></i></a>
+                                                                <input class="cart__qty-input qty" type="text" name="updates[]" id="qty" value="@a.qty" pattern="[0-9]*">
+                                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon icon-plus"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-right small--hide cart-price">
+                                                        @{
+                                                            int amount = a.price * a.qty;
+                                                        }
+                                                        <div><span class="money">@amount VND </span></div>
+                                                    </td>
+                                                    @*remove button*@
+                                                    <td class="text-center small--hide"><a href="@Url.Action("Remove_Item", "Cart", new { area = "Sales", product_id=@a.product_id })" class="btn btn--secondary cart__remove" title="Remove tem"><i id="remove_button_id" class="icon icon anm anm-times-l"></i></a></td>
+                                                </tr>
+                                            </div>
+                                        }
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" class="text-left"><a href="@Url.Action("Product", "ProductSales", new { area = "Sales" })" class="btn btn-secondary btn--small cart-continue">Tiếp tục mua sắm</a></td>
+                                        <td colspan="3" class="text-right">
+                                            <a href="@Url.Action("Remove_All_Item", "Cart", new { area = "Sales" })" class="btn btn-secondary btn--small  small--hide">Xóa tất cả</a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </form>
+                    </div>
+
+                    <div class="container mt-4">
+                        <form method="post" action="">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-4">
+                                    <form action="#" method="post">
+                                        <div class="card-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                                        <label for="input-cardname">Tên chủ thẻ <span class="required-f">*</span></label>
+                                                        <input name="cardname" value="" placeholder="Tên chủ thẻ" id="input-cardname" class="form-control" type="text">
+                                                    </div>
+                                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                                        <label for="input-country">Loại thẻ<span class="required-f">*</span></label>
+                                                        <select name="country_id" class="form-control">
+                                                            <option value=""> Chọn loại thẻ </option>
+                                                            <option value="1">Thẻ tín dụng</option>
+                                                            <option value="2">Thẻ visa</option>
+                                                            <option value="3">Thẻ ngân hàng</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                                        <label for="input-cardno">Số thẻ  <span class="required-f">*</span></label>
+                                                        <input name="cardno" value="" placeholder="Số thẻ" id="input-cardno" class="form-control" type="text">
+                                                    </div>
+                                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                                        <label for="input-cvv">Mã OTP<span class="required-f">*</span></label>
+                                                        <input name="cvv" value="" placeholder="Nhập mã OTP" id="input-cvv" class="form-control" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                                        <input type="button" class="btn btn-secondary btn--small  small--hide" value="Nhận mã OTP" />
+                                                    </div>
+                                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                                        <img class="padding-25px-top xs-padding-5px-top" src="/Asset/assets/images/payment-img.jpg" alt="card" title="card" />
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </form>
+
+                                    @*                        <h5>Phương thức thanh toán</h5>
+                                        <form action="#" method="post">
+                                            <div class="form-group">
+                                                <label for="address_zip">Chọn phương thức thanh toán </label>
+                                                <input type="button" name="coupon">
+                                                <p>  </p>
+                                                <input type="button" name="coupon">
+                                            </div>
+                                        </form>*@
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-4">
+                                    <h5>Địa chỉ nhận hàng</h5>
+                                    <form action="#" method="post">
+                                        <div class="form-group">
+                                            <label for="address_country">Tỉnh (Thành phố)</label>
+                                            <select id="address_country" name="address[country]" data-default="United States">
+                                                <option value="HaNoi" data-provinces="[]">Hà Nội</option>
+                                                <option value="---" data-provinces="[]">---</option>
+                                                <option value="HoChiMinh" data-provinces="[]">Hồ Chí Minh</option>
+                                                <option value="HaTinh" data-provinces="[]">Hà Tĩnh</option>
+                                                <option value="TuyenQuang" data-provinces="[]">Tuyên Quang</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address_zip">Địa chỉ cụ thể (Số nhà, đường,..)</label>
+                                            <input type="text" id="address_zip" name="address[zip]">
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
+                                    <div class="solid-border">
+                                        <div class="row border-bottom pb-2">
+                                            <span class="col-12 col-sm-6 cart__subtotal-title">Tiền sản phẩm</span>
+                                            @{
+                                                int total_bef = 0;
+                                                int chietkhau = 0;
+                                                int total = 0;
+                                                foreach (var a in Model)
+                                                {
+                                                    total_bef = total_bef + a.price;
+                                                }
+                                                chietkhau = total_bef / 10;
+                                                total = total_bef + chietkhau;
+                                            }
+                                            <span class="col-12 col-sm-6 text-right"><span class="money">@total_bef VND</span></span>
+                                        </div>
+                                        <div class="row border-bottom pb-2 pt-2">
+                                            <span class="col-12 col-sm-6 cart__subtotal-title">Chiết khấu</span>
+                                            <span class="col-12 col-sm-6 text-right">@chietkhau VND</span>
+                                        </div>
+                                        <div class="row border-bottom pb-2 pt-2">
+                                            <span class="col-12 col-sm-6 cart__subtotal-title">Giao hàng</span>
+                                            <span class="col-12 col-sm-6 text-right">Miễn phí</span>
+                                        </div>
+                                        <div class="row border-bottom pb-2 pt-2">
+                                            <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng số tiền</strong></span>
+                                            <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">@total VND</span></span>
+                                        </div>
+                                        <p class="cart_tearm">
+                                            <label>
+                                                <input type="checkbox" name="tearm" class="checkbox" value="tearm" required="">
+                                                Đồng ý với điều khoản thanh toán
+                                            </label>
+                                        </p>
+                                        <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Thanh toán" disabled="disabled">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Body Content-->
+    }
+    else
+    {
+        <h1>Bạn chưa đăng nhập, không thể xem thông tin giỏ hàng</h1>
+        <a href="@Url.Action("Login", "Login", new { area = "Sales" })">Đăng nhập ngay</a>
+    }
+}
+
