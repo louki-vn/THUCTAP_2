@@ -10,7 +10,7 @@
     <meta name="description" content="description">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
-    <link rel="shortcut icon" href="~/Asset/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="~/Asset/Images/logo.png" />
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="~/Asset/assets/css/plugins.css">
     <!-- Bootstap CSS -->
@@ -73,7 +73,7 @@
                     <!--Desktop Logo-->
                     <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
                         <a href="@Url.Action("Home", "HomeSales", new { area = "Sales" })">
-                            <img src="/Asset/assets/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
+                            <img src="~/Asset/Images/Untitled.png" alt="" title="" />
                         </a>
                     </div>
                     <!--End Desktop Logo-->
@@ -128,7 +128,7 @@
                     <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
                         <div class="logo">
                             <a href="index.html">
-                                <img src="/Asset/assets/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
+                                <img src="~/Asset/Images/logo.png" alt="" title="" />
                             </a>
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                                         {
                                             <li class="item">
                                                 <a class="product-image" href="#">
-                                                    <img src="@item.image_link" alt="3/4 Sleeve Kimono Dress" title="" />
+                                                    <img src="@item.image_link" alt="@item.name" title="" />
                                                 </a>
                                                 <div class="product-details">
                                                     <a href="@Url.Action("Remove_Item", "Cart", new { area = "Sales", product_id=@item.product_id })" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
