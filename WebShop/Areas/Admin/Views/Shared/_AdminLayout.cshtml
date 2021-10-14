@@ -6,52 +6,39 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
-<!-- belle/home6-modern.html   11 Nov 2019 12:28:00 GMT -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="description">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
     <link rel="shortcut icon" href="~/Asset/admin/assets/images/favicon.png" />
-    <!-- Plugins CSS -->
     <link rel="stylesheet" href="~/Asset/assets/css/plugins.css">
-    <!-- Bootstap CSS -->
     <link rel="stylesheet" href="~/Asset/assets/css/bootstrap.min.css">
-    <!-- Main Style CSS -->
     <link rel="stylesheet" href="~/Asset/assets/css/style.css">
     <link rel="stylesheet" href="~/Asset/assets/css/responsive.css">    
 
-    <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Quản lý hệ thống</title>
 
-    <!-- Fontfaces CSS-->
     <link href="~/Asset/admin/css/font-face.css" rel="stylesheet" media="all">
     <link href="~/Asset/admin/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="~/Asset/admin/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="~/Asset/admin/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
-    <!-- Bootstrap CSS-->
-    <link href="~/Asset/admin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
-    <!-- Vendor CSS-->
-    <link href="~/Asset/admin/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    @*<link href="~/Asset/admin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">*@
+    @*<link href="~/Asset/admin/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">*@
     <link href="~/Asset/admin/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
     <link href="~/Asset/admin/vendor/wow/animate.css" rel="stylesheet" media="all">
     <link href="~/Asset/admin/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
     <link href="~/Asset/admin/vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="~/Asset/admin/vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="~/Asset/admin/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
     <link href="~/Asset/admin/css/theme.css" rel="stylesheet" media="all">
+
 </head>
 <body class="template-index belle home8-jewellery">
     <div id="pre-loader">
         <img src="~/Asset/assets/images/loader.gif" alt="Loading..." />
     </div>
     <div class="pageWrapper">
-
         <!--Top Header-->
         <div class="top-header home8-jewellery-top">
             <div class="container-fluid">
@@ -69,8 +56,8 @@
                 <div class="row align-items-center">
                     <!--Desktop Logo-->
                     <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
-                        <a href="@Url.Action("Home", "HomeSales", new { area = "Sales" })">
-                            <img src="/Asset/admin/images/admin-login-sign-made-wood-table_292052-431.jpg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
+                        <a href="@Url.Action("Index", "HomeAdmin", new { area = "Admin" })">
+                            <img src="/Asset/admin/images/admin-login-sign-made-wood-table_292052-431.jpg" alt="Louki" title="Louki" />
                         </a>
                     </div>
                     <!--End Desktop Logo-->
@@ -86,7 +73,7 @@
                             <!-- for mobile -->
                             <ul id="siteNav" class="site-nav medium center hidearrow">
                                 <li class="lvl1 parent megamenu">
-                                    <a href="@Url.Action("Index", "HomeAdmin", new { area = "Admin" })" id="1">Trang chủ <i class="anm anm-angle-down-l"></i></a>
+                                    <a href="@Url.Action("Index", "HomeAdmin", new { area = "Admin" })">Trang chủ <i class="anm anm-angle-down-l"></i></a>
                                 </li>
                                 <li class="lvl1 parent megamenu">
                                     <a href="@Url.Action("Index", "Category", new { area = "Admin" })">Danh mục <i class="anm anm-angle-down-l"></i></a>
@@ -104,51 +91,53 @@
                         </nav>
                         <!--End Desktop Menu-->
                     </div>
-                    <div class="col-2 col-sm-3 col-md-3 col-lg-2 d-none d-lg-block">
-                        <div class="account-wrap">
-                            <div class="account-item account-item--style2 clearfix js-item-menu">
-                                <div class="image">
-                                    <img src="/Asset/admin/images/icon/avatar-01.jpg" alt="John Doe" />
-                                </div>
-                                <div class="content">
-                                    <a class="js-acc-btn" href="#">john doe</a>
-                                </div>
-                                <div class="account-dropdown js-dropdown">
-                                    <div class="info clearfix">
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="/Asset/admin/images/icon/avatar-01.jpg" alt="John Doe" />
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="name">
-                                                <a href="#">john doe</a>
-                                            </h5>
-                                            <span class="email">johndoe@example.com</span>
-                                        </div>
+                    @if (ViewBag.is_logined == 1)
+                    {
+                        <div class="col-2 col-sm-3 col-md-3 col-lg-2 d-none d-lg-block">
+                            <div class="account-wrap">
+                                <div class="account-item account-item--style2 clearfix js-item-menu">
+                                    <div class="image">
+                                        <img src="/Asset/admin/images/icon/avatar-01.jpg" alt="@ViewBag.user_logined" />
                                     </div>
-                                    <div class="account-dropdown__body">
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-account"></i>Account
-                                            </a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting
-                                            </a>
-                                        </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#">@ViewBag.user_logined</a>
                                     </div>
-                                    <div class="account-dropdown__footer">
-                                        <a href="@Url.Action("Logout", "Login", new { area = "Sales"})">
-                                            <i class="zmdi zmdi-power"></i>Logout
-                                        </a>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="/Asset/admin/images/icon/avatar-01.jpg" alt="@ViewBag.user_logined" />
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#">@ViewBag.user_logined</a>
+                                                </h5>
+                                                <span class="email">louki@example.com</span>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-account"></i>Tài khoản
+                                                </a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-settings"></i>Cài đặt
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a href="@Url.Action("Logout", "Login", new { area = "Sales"})">
+                                                <i class="zmdi zmdi-power"></i>Đăng xuất
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
+                    }
                 </div>
             </div>
         </div>
@@ -161,16 +150,16 @@
                     <a href="@Url.Action("Index", "HomeAdmin", new { area = "Admin" })">Trang chủ <i class="anm anm-plus-l"></i></a>
                 </li>
                 <li class="lvl1 parent megamenu">
-                    <a href="#">Danh mục <i class="anm anm-plus-l"></i></a>
+                    <a href="~/Admin/Category/Index">Danh mục <i class="anm anm-plus-l"></i></a>
                 </li>
                 <li class="lvl1 parent megamenu">
-                    <a href="product-layout-1.html">Sản phẩm <i class="anm anm-plus-l"></i></a>
+                    <a href="~/Admin/ProductAdmin/Index">Sản phẩm <i class="anm anm-plus-l"></i></a>
                 </li>
                 <li class="lvl1 parent megamenu">
-                    <a href="product-layout-1.html">Đơn hàng <i class="anm anm-plus-l"></i></a>
+                    <a href="~/Admin/Order/Index">Đơn hàng <i class="anm anm-plus-l"></i></a>
                 </li>
                 <li class="lvl1 parent megamenu">
-                    <a href="blog-left-sidebar.html">Dữ liệu người dùng <i class="anm anm-plus-l"></i></a>
+                    <a href="~/Admin/UserData/Index">Dữ liệu người dùng <i class="anm anm-plus-l"></i></a>
                 </li>
             </ul>
         </div>
@@ -187,6 +176,13 @@
                 <div class="container">
                     <div class="footer-bottom">
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="copyright">
+                                    <p>Copyright © 2021 MTA. All rights reserved. Design by TheNhat & MinhHieu <a href="#">MTA</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <!--Footer Copyright-->
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 copyright text-center"><span></span> <a href="@Url.Action("Index", null, new { area = "Admin", controller = "HomeAdmin"}, Request.Url.Scheme)">Trang chủ</a></div>
                             <!--End Footer Copyright-->
@@ -195,24 +191,21 @@
                 </div>
             </div>
         </footer>
-        <!--End Footer-->
-        <!--Scoll Top-->
+
         <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
-        <!--End Scoll Top-->
-        <!-- Including Jquery -->
+
         <script src="~/Asset/assets/js/vendor/jquery-3.3.1.min.js"></script>
         <script src="~/Asset/assets/js/vendor/modernizr-3.6.0.min.js"></script>
         <script src="~/Asset/assets/js/vendor/jquery.cookie.js"></script>
         <script src="~/Asset/assets/js/vendor/wow.min.js"></script>
         <script src="~/Asset/assets/js/vendor/masonry.js"></script>
-        <!-- Including Javascript -->
+
         <script src="~/Asset/assets/js/bootstrap.min.js"></script>
         <script src="~/Asset/assets/js/plugins.js"></script>
         <script src="~/Asset/assets/js/popper.min.js"></script>
         <script src="~/Asset/assets/js/lazysizes.js"></script>
         <script src="~/Asset/assets/js/main.js"></script>
-        <!--For Newsletter Popup-->
-        <!-- Vendor JS       -->
+
         <script src="~/Asset/admin/vendor/slick/slick.min.js"></script>
         <script src="~/Asset/admin/vendor/wow/wow.min.js"></script>
         <script src="~/Asset/admin/vendor/animsition/animsition.min.js"></script>
@@ -224,12 +217,8 @@
         <script src="~/Asset/admin/vendor/chartjs/Chart.bundle.min.js"></script>
         <script src="~/Asset/admin/vendor/select2/select2.min.js"></script>
 
-        <!-- Main JS-->
         <script src="~/Asset/admin/js/main.js"></script>
-
-        <!--End For Newsletter Popup-->
+        <script src="~/Asset/admin/js/Louki.js"></script>
     </div>
 </body>
-
-
 </html>

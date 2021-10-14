@@ -1,0 +1,50 @@
+﻿ @using WebShop.Models 
+    
+    <!--Minicart Popup-->
+<div id="header-cart" class="block block-cart">
+    <ul class="mini-products-list">
+        @{
+            int sum = 0;
+        }
+        @foreach (ItemInCart item in (List<WebShop.Models.ItemInCart>)ViewBag.ItemInCart)
+        {
+            <li class="item">
+                <a class="product-image" href="#">
+                    <img src="@item.image_link" alt="@item.name" title="" />
+                </a>
+                <div class="product-details">
+                    <a href="@Url.Action("Remove_Item", "Cart", new { area = "Sales", product_id=@item.product_id })" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
+                    <a class="pName" href="cart.html">@item.name</a>
+                    <div class="variant-cart">Size: @item.size</div>
+                    <div class="wrapQtyBtn">
+                        <div class="qtyField">
+                            <span class="label">Số lượng:</span>
+                            <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
+                            <input type="text" id="Quantity" name="quantity" value="@item.qty" class="product-form__input qty">
+                            <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="priceRow">
+                        <div class="product-price">
+                            @{
+                                int amount = item.price * item.qty;
+                                sum = sum + amount;
+                            }
+                            <span class="money">Thành tiền: @amount VNĐ</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+    <div class="total">
+        <div class="total-in">
+            <span class="label">Tổng tạm tính:</span><span class="product-price"><span class="money">@sum  VNĐ</span></span>
+        </div>
+        <div class="buttonSet text-center">
+            <a href="@Url.Action("Cart", "Cart", new { area = "Sales" })" class="btn btn-secondary btn--small">View Cart</a>
+            <a href="checkout.html" class="btn btn-secondary btn--small">Checkout</a>
+        </div>
+    </div>
+</div>
+<!--End Minicart Popup-->

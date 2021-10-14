@@ -1,19 +1,19 @@
-﻿function Add_To_Cart_Click(a, b) {
-    if (String(a) == "1") {
-        $.ajax({
-            type: "GET",
-            data: { id: b },
-            url: "/ProductSales/Add_To_CartAjax",
-            success: function (e) {
-                alert("Thêm vào giỏ hàng thành công!!");
-            }
-        })
-        alert("Thêm vào giỏ hàng thành công!!");
-    }
-    else {
-        alert("Bạn chưa đăng nhập!!");
-    }
-}
+﻿////function Add_To_Cart_Click(a, b) {
+////    if (String(a) == "1") {
+////        $.ajax({
+////            type: "GET",
+////            data: { id: b },
+////            url: "/ProductSales/Add_To_CartAjax",
+////            success: function (e) {
+////                alert("Thêm vào giỏ hàng thành công!!");
+////            }
+////        })
+////        alert("Thêm vào giỏ hàng thành công!!");
+////    }
+////    else {
+////        alert("Bạn chưa đăng nhập!!");
+////    }
+////}
 
 function Add_To_Cart_Click2(a) {
     if (String(a) == "1") {

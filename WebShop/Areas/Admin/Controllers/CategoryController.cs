@@ -1,4 +1,6 @@
-﻿using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 using WebShop.Models;
@@ -15,34 +17,42 @@ namespace WebShop.Areas.Admin.Controllers
             ViewBag.is_logined = HttpContext.Application["is_logined"];
             var result = db.CATEGORies.ToList();
             return View(result);
-        }
+        }      
 
         [HttpPost]
         public ActionResult AddCategory(FormCollection fc)
         {
+            var cate = db.CATEGORies.ToList();
+            var id = new SqlParameter("@id", cate.Last().category_id + 1);
             var name = new SqlParameter("@name", fc["category"]);
             var group_id = new SqlParameter("@group_id", fc["group_id"]);
-            db.Database.ExecuteSqlCommand("AddCategory @name, @group_id", name, group_id);
+            db.Database.ExecuteSqlCommand("AddCategory @id, @name, @group_id", id, name, group_id);
 
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public ActionResult EditCategory(FormCollection fc)
+        [HttpGet]
+        public ActionResult EditCategory(string category_id, string category_name)
         {
-            var id = new SqlParameter("@id", TempData["category_id"]);
-            var name = new SqlParameter("@name", fc["name"]);
-            var group_id = new SqlParameter("@group_id", fc["group_id"]);
+            var id = new SqlParameter("@id", category_id);
+            var name = new SqlParameter("@name", category_name);
+            //var group_id = new SqlParameter("@group_id", fc["group_id"]);
 
-            db.Database.ExecuteSqlCommand("EditCategory @id, @name, @group_id", id, name, group_id); 
+            db.Database.ExecuteSqlCommand("EditCategory @id, @name", id, name);
+            ViewBag.user_logined = HttpContext.Application["user_logined"];
+            ViewBag.is_logined = HttpContext.Application["is_logined"];
+            var result = db.CATEGORies.ToList();
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public ActionResult DeleteCategory()
+        [HttpGet]
+        public ActionResult DeleteCategory(string delete_id)
         {
-            var id = new SqlParameter("@id", TempData["category_id"]);
+            var id = new SqlParameter("@id", delete_id);
             db.Database.ExecuteSqlCommand("DeleteCategory @id", id);
+
+            ViewBag.user_logined = HttpContext.Application["user_logined"];
+            ViewBag.is_logined = HttpContext.Application["is_logined"];
             return RedirectToAction("Index");
         }
 
@@ -55,12 +65,12 @@ namespace WebShop.Areas.Admin.Controllers
             //  Lọc danh mục theo nhóm sản phẩm
             var type = new SqlParameter("@type", filter);
             if (type.Value.ToString() == "3")
-            {                
+            {
                 var result = db.CATEGORies.ToList();
                 return View("Index", result);
             }
             else
-            {               
+            {
                 var result = db.CATEGORies.SqlQuery("FilterCategory @type", type).ToList();
                 return View("Index", result);
             }

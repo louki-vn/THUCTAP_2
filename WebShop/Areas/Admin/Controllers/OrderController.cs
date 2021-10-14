@@ -17,38 +17,37 @@ namespace WebShop.Areas.Admin.Controllers
             return View(result);
         }
 
-        [HttpPost]
-        public ActionResult EditOrder()
+        [HttpGet]
+        public ActionResult EditOrder(string tran_id)
         {
             //  Chuyển trạng thái đơn hàng từ chờ xử lý -> đang xử lý
-            var id = new SqlParameter("@id", TempData["Tran_ID"]);
+            var id = new SqlParameter("@id", tran_id);
             var status = new SqlParameter("@status", 1);
             db.Database.ExecuteSqlCommand("UpdateTransactionStatus @id, @status", id, status);
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public ActionResult AddReport(FormCollection fc)
+        [HttpGet]
+        public ActionResult AddReport(string  tran_id, string mem_id, string product_id, string amount, string qty, string employee_id, string date)
         {
             //  Báo cáo hoàn thành đơn hàng đồng thời chuyển trạng thái đơn hàng thành Đã giao hàng
-            var tran_id = new SqlParameter("@tran_id", System.Data.SqlDbType.Int) { Value = TempData["tran_id"] };
-            var tran_id1 = new SqlParameter("@tran_id1", System.Data.SqlDbType.Int) { Value = TempData["tran_id"] };
-            var employee_id = new SqlParameter("@employee_id", System.Data.SqlDbType.Int) { Value = fc["employee_id"] };
-            var mem_id = new SqlParameter("@mem_id", System.Data.SqlDbType.Int) { Value = TempData["mem_id"] };
-            var amount = new SqlParameter("@amount", System.Data.SqlDbType.Int) { Value = TempData["amount"] };
-            var qty = new SqlParameter("@qty", System.Data.SqlDbType.Int) { Value = TempData["qty"] };
-            var product_id = new SqlParameter("@product_id", System.Data.SqlDbType.Int) { Value = TempData["product_id"] };
-            var date = new SqlParameter("@date", fc["date"]);
+            var tran_id_var = new SqlParameter("@tran_id", tran_id);
+            var tran_id1 = new SqlParameter("@tran_id1", tran_id);
+            var employee_id_var = new SqlParameter("@employee_id", employee_id);
+            var mem_id_var = new SqlParameter("@mem_id", mem_id);
+            var amount_var = new SqlParameter("@amount", amount);
+            var qty_var = new SqlParameter("@qty", qty);
+            var product_id_var = new SqlParameter("@product_id", product_id);
+            var date_var = new SqlParameter("@date", date);
             var result = db.REPORTs.SqlQuery("CheckReport @tran_id1", tran_id1).ToList();
             if (result.Count != 0)
             {
-                ViewBag.Message = "Giao dịch này đã được báo cáo!";
-                var ret = db.TRANSACTIONs.ToList();
-                return View("Index", ret);
+                ViewBag.Message = "Giao dịch này đã được báo cáo!";                
+                return RedirectToAction("Index");
             }
             
             db.Database.ExecuteSqlCommand("AddReport @tran_id, @employee_id, @mem_id,  @amount, @qty, @product_id, @date",
-                                                    tran_id, employee_id, mem_id, amount, qty, product_id, date);
+                                                    tran_id_var, employee_id_var, mem_id_var, amount_var, qty_var, product_id_var, date_var);
             return RedirectToAction("Index");
         }
 

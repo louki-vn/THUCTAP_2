@@ -296,3 +296,36 @@
     </div>
 </div>
 <!--End Body Content-->
+
+
+<script>
+
+    function Add_To_Cart_Click(a, b) {
+        if (String(a) == "1") {
+            $.ajax({
+                type: "GET",
+                data: { id: b },
+                url: "/ProductSales/Add_To_CartAjax",
+                success: function (e) {
+                    
+                }
+            })
+            alert("Thêm vào giỏ hàng thành công!!");
+            alert('Confirm to refresh alert messages.');
+            $("#minicartpopup").load("#minicartpopup .site-cart > *");
+        }
+        else {
+            alert("Bạn chưa đăng nhập!!");
+        }
+        //$("#themvaogiohang_id").click(function () {
+        //    alert('Confirm to refresh alert messages.');
+        //    $("#minicartpopup").load("#minicartpopup .mini-cart-popup > *");
+        //});
+    }
+
+    //$("#themvaogiohang_id").click(function () {
+    //    alert('Confirm to refresh alert messages.');
+    //    $("#minicartpopup").load("#minicartpopup .mini-cart-popup > *");
+    //});
+
+</script>

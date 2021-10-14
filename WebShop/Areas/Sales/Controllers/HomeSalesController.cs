@@ -10,7 +10,7 @@ namespace WebShop.Areas.Sales.Controllers
     {
         // GET: Sales/Home
         Shop db = new Shop();
-        [HttpGet]
+       
         public ActionResult Home()
         {
             ViewBag.user_logined = HttpContext.Application["user_logined"];

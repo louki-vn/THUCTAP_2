@@ -25,24 +25,24 @@ namespace WebShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteMember()
+        public ActionResult DeleteMember(string delete_id)
         {
-            var id = new SqlParameter("@id", System.Data.SqlDbType.Int) { Value = TempData["delete_id"] };
+            var id = new SqlParameter("@id", delete_id);
             db.Database.ExecuteSqlCommand("DeleteMember @id", id);
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public ActionResult UpdateMember(FormCollection fc)
-        {
-            var id = new SqlParameter("@id", fc["id"]);
-            var password = new SqlParameter("@password", fc["password"]);
-            var phone = new SqlParameter("@phone", fc["phone"]);
-            var address = new SqlParameter("@address", fc["address"]);
+        //[HttpPost]
+        //public ActionResult UpdateMember(FormCollection fc)
+        //{
+        //    var id = new SqlParameter("@id", fc["id"]);
+        //    var password = new SqlParameter("@password", fc["password"]);
+        //    var phone = new SqlParameter("@phone", fc["phone"]);
+        //    var address = new SqlParameter("@address", fc["address"]);
 
-            db.Database.ExecuteSqlCommand("UpdateMember @id, @password, @phone, @address", id, password, phone, address);
-            return View("UserInfor");
-        }
+        //    db.Database.ExecuteSqlCommand("UpdateMember @id, @password, @phone, @address", id, password, phone, address);
+        //    return View("UserInfor");
+        //}
 
         [HttpPost]
         public ActionResult Filter(string filter)

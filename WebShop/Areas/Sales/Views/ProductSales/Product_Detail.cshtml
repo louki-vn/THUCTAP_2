@@ -383,7 +383,7 @@
                                             <div class="product-details text-center">
                                                 <!-- product name -->
                                                 <div class="product-name">
-                                                    <a href="@Url.Action("Product_Detail", "Product", new { area = "Sales", product_id = a.product_id })">@a.name</a>
+                                                    <a href="@Url.Action("Product_Detail", "Product", new { area = "Sales", product_id = @a.product_id })">@a.name</a>
                                                 </div>
                                                 <!-- End product name -->
                                                 <!-- product price -->

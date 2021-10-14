@@ -11,7 +11,7 @@ namespace WebShop.Areas.Sales.Controllers
     {
         // GET: Sales/Product
         Shop db = new Shop();
-        // GET: Product
+        
         public ActionResult Product()
         {
             ViewBag.user_logined = HttpContext.Application["user_logined"];

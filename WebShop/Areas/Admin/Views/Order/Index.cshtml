@@ -7,7 +7,6 @@
 @if (ViewBag.Message != null)
 {
     <script type="text/javascript">
-
         window.onload = function () {
             /**/
             alert("Giao dịch này đã được báo cáo!");
@@ -25,7 +24,7 @@
                 <div class="user-data m-b-30">
                     <!-- DATA TABLE -->
                     <h3 class="title-3 text-center m-b-30">
-                        <i class="zmdi zmdi-account-calendar"></i>Giao dịch
+                        <i class="zmdi zmdi-shopping-cart"></i>Giao dịch
                     </h3>
                     <div class="table-data__tool">
                         @using (Html.BeginForm("Filter", "Order", FormMethod.Post))
@@ -69,15 +68,15 @@
                                 {
                                     <tr class="tr-shadow">
                                         <td></td>
-                                        <td>@item.transaction_id</td>
-                                        <td>@item.member_id</td>
+                                        <td id="id @item.transaction_id">@item.transaction_id</td>
+                                        <td id="mem_id @item.transaction_id">@item.member_id</td>
                                         <td>@item.member_name</td>
-                                        <td>@item.product_id</td>
-                                        <td>@item.amount</td>
-                                        <td>@item.delivery</td>
-                                        <td>@item.member_phone_number</td>
-                                        <td>@item.payment</td>
-                                        <td>@item.qty</td>
+                                        <td id="product_id @item.transaction_id">@item.product_id</td>
+                                        <td id="amount @item.transaction_id">@item.amount</td>
+                                        <td id="delivery @item.transaction_id">@item.delivery</td>
+                                        <td id="id @item.transaction_id">@item.member_phone_number</td>
+                                        <td id="payment @item.transaction_id">@item.payment</td>
+                                        <td id="qty @item.transaction_id">@item.qty</td>
                                         <td>
                                             @if (item.status == 0)
                                             {
@@ -96,92 +95,107 @@
                                             @if (@item.status != 3)
                                             {
                                                 <div class="table-data-feature">
-                                                    @using (Html.BeginForm("AddReport", "Order", FormMethod.Post))
-                                                    {
-                                                        <div id="addreport" class="modal" tabindex="-1" role="dialog">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Báo cáo hoàn thành giao dịch @item.transaction_id</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
+                                                    <div id="addreport" class="modal" tabindex="-1" role="dialog">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Báo cáo hoàn thành giao dịch</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="tran_id" class=" form-control-label">Mã giao dịch</label>
+                                                                        <input type="text" id="tran_id" name="tran_id" placeholder="" disabled="" class="form-control">
+
                                                                     </div>
-                                                                    <div class="modal-body">
-                                                                        <div class="form-group">
-                                                                            <label for="tran_id" class=" form-control-label">Mã giao dịch</label>
-                                                                            <input type="text" id="tran_id" name="tran_id" placeholder="@item.transaction_id" disabled="" class="form-control">
-                                                                            @{ TempData["tran_id"] = item.transaction_id;}
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="mem_id" class=" form-control-label">Mã khách hàng</label>
-                                                                            <input type="text" id="mem_id" name="mem_id" placeholder="@item.member_id" disabled="" class="form-control">
-                                                                            @{ TempData["mem_id"] = item.member_id;}
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="product_id" class=" form-control-label">Mã sản phẩm</label>
-                                                                            <input type="number" id="product_id" name="product_id" placeholder="@item.product_id" disabled="" class="form-control">
-                                                                            @{ TempData["product_id"] = item.product_id;}
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="amount" class=" form-control-label">Amount</label>
-                                                                            <input type="number" id="amount" name="amount" placeholder="@item.amount" disabled="" class="form-control">
-                                                                            @{ TempData["amount"] = item.amount;}
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="qty" class=" form-control-label">QTY</label>
-                                                                            <input type="text" id="qty" name="qty" placeholder="@item.qty" disabled="" class="form-control">
-                                                                            @{ TempData["qty"] = item.qty;}
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="date" class="form-control-label">Ngày báo cáo</label>
-                                                                            <input type="date" id="date" name="date" placeholder="@DateTime.Now" class="form-control" />
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="employee_id" class="form-control-label">Nhân viên thực hiện</label>
-                                                                            <input type="text" id="employee_id" name="employee_id" placeholder="Nhập mã nhân viên thực hiện" class="form-control" />
-                                                                        </div>
+                                                                    <div class="form-group">
+                                                                        <label for="mem_id" class=" form-control-label">Mã khách hàng</label>
+                                                                        <input type="text" id="mem_id" name="mem_id" placeholder="" disabled="" class="form-control">
+
                                                                     </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" class="btn btn-primary">Báo cáo</button>
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                                    <div class="form-group">
+                                                                        <label for="product_id" class=" form-control-label">Mã sản phẩm</label>
+                                                                        <input type="number" id="product_id" name="product_id" placeholder="" disabled="" class="form-control">
+
                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <label for="amount" class=" form-control-label">Amount</label>
+                                                                        <input type="number" id="amount" name="amount" placeholder="" disabled="" class="form-control">
+
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="qty" class=" form-control-label">QTY</label>
+                                                                        <input type="text" id="qty" name="qty" placeholder="" disabled="" class="form-control">
+
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="date" class="form-control-label">Ngày báo cáo</label>
+                                                                        <input type="date" id="date" name="date" placeholder="@DateTime.Now" class="form-control" />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="employee_id" class="form-control-label">Nhân viên thực hiện</label>
+                                                                        <input type="text" id="employee_id" name="employee_id" placeholder="Nhập mã nhân viên thực hiện" class="form-control" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-primary" onclick="addreport()">Báo cáo</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    }
-                                                    <button class="item" data-toggle="modal" data-target="#addreport" data-placement="top" title="Report">
+                                                    </div>
+                                                    <button class="item" data-toggle="modal" data-target="#addreport" data-placement="top" title="Report" onclick="report(@item.transaction_id)">
                                                         <i class="zmdi zmdi-archive"></i>
                                                     </button>
-
-                                                    @using (Html.BeginForm("EditOrder", "Order", FormMethod.Post))
-                                                    {
-                                                        <div id="editorder" class="modal" tabindex="-1" role="dialog">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Thay đổi trạng thái giao dịch</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
+                                                    <div id="editorder" class="modal" tabindex="-1" role="dialog">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Thay đổi trạng thái giao dịch</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="change_tran_id" class=" form-control-label">Thay đổi trạng thái giao dịch của giao dịch : Đang xử lý </label>
+                                                                        <input id="change_tran_id" name="change_tran_id" placeholder="" disabled="" class="form-control">
                                                                     </div>
-                                                                    <div class="modal-body">
-                                                                        <div class="form-group">
-                                                                            <label for="productname" class=" form-control-label">Thay đổi trạng thái giao dịch của giao dịch @item.transaction_id: Đang xử lý </label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" class="btn btn-primary">Thay đổi</button>
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-primary" onclick="ChangeStatus()">Thay đổi</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    }
-                                                    <button class="item" data-toggle="modal" data-placement="top" title="Edit" data-target="#editorder">
+                                                    </div>
+                                                    <button class="item" data-toggle="modal" data-placement="top" title="Edit" data-target="#editorder" onclick="Change(@item.transaction_id)">
                                                         <i class="zmdi zmdi-edit"></i>
-                                                        @{TempData["Tran_ID"] = item.transaction_id; }
                                                     </button>
+                                                    <div id="deleteorder" class="modal" tabindex="-1" role="dialog">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Giao</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="del_tran_id" class=" form-control-label">Thay đổi trạng thái giao dịch của giao dịch :failed </label>
+                                                                        <input id="del_tran_id" name="del_tran_id" type="hidden" placeholder="" disabled="" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-primary" onclick="">Thay đổi</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                                                         <i class="zmdi zmdi-delete"></i>
                                                     </button>
@@ -202,12 +216,14 @@
     }
     else
     {
-        <h1>Bạn chưa đăng nhập, không thể xem thông tin giỏ hàng</h1>
+        <h1>Bạn phải đăng nhập bằng quyền Admin để sử dụng chức năng này</h1>
         <a href="@Url.Action("Login", null, new { area = "Sales", controller = "Login"}, Request.Url.Scheme) ">Đăng nhập ngay</a>
     }
 }
 
 
-
+<script>
+    
+</script>
 
 

@@ -65,19 +65,19 @@ namespace WebShop.Areas.Sales.Controllers
             return View(itemincartlist);
         }
 
-        public ActionResult Remove_Item(string product_id)
+        public ActionResult Remove_Item(string product_id, string size)
         {
             ViewBag.user_logined = HttpContext.Application["user_logined"];
             ViewBag.is_logined = HttpContext.Application["is_logined"];
 
             var product_id_var = new SqlParameter("@product_id", product_id);
-            var result = db.Database.ExecuteSqlCommand("exec remove_CART_ITEM_from_product_id @product_id", product_id_var);
+            var size_var = new SqlParameter("@size", size);
+            db.Database.ExecuteSqlCommand("exec remove_CART_ITEM_from_product_id_and_size @product_id, @size", product_id_var, size_var);
 
             var username = HttpContext.Application["user_logined"].ToString();
             List<ItemInCart> itemincartlist = new List<ItemInCart>();
             Get_Data(username, itemincartlist);
             return View("~/Areas/Sales/Views/Cart/Cart.cshtml", itemincartlist);
-
         }
 
         public ActionResult Remove_All_Item()

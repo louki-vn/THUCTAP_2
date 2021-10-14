@@ -80,26 +80,26 @@ namespace WebShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public ActionResult DeleteProduct()
+        [HttpGet]
+        public ActionResult DeleteProduct(string product_id)
         {
-            var id = new SqlParameter("@id", System.Data.SqlDbType.Int) { Value = TempData["delete_id"] };
+            var id = new SqlParameter("@id", product_id) ;
             db.Database.ExecuteSqlCommand("DeleteProduct @id", id);
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public ActionResult EditProduct(FormCollection fc)
+        [HttpGet]
+        public ActionResult EditProduct( string product_id, string name, string size, string price, string content, string sale)
         {
-            var id = new SqlParameter("@id", System.Data.SqlDbType.Int) { Value = TempData["product_id_2"] };
-            var name = new SqlParameter("@name", fc["name"]);
-            var size = new SqlParameter("@size", fc["size_2"]);
-            var price = new SqlParameter("@price", fc["price"]);
-            var content = new SqlParameter("@content", fc["content"]);
-            var sale = new SqlParameter("@sale", fc["sale"]);
+            var id = new SqlParameter("@id", product_id);
+            var name_var = new SqlParameter("@name", name);
+            var size_var = new SqlParameter("@size", size);
+            var price_var = new SqlParameter("@price", price);
+            var content_var = new SqlParameter("@content", content);
+            var sale_var = new SqlParameter("@sale", sale);
 
             db.Database.ExecuteSqlCommand("exec EditProduct @id, @name, @size, @price, @content, @sale", 
-                                                        id, name, size, price, content, sale);
+                                                        id, name_var, size_var, price_var, content_var, sale_var);
             return RedirectToAction("Index");
         }
 

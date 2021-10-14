@@ -20,7 +20,7 @@
                             <div class="table-data__tool-left">
                                 <div class="rs-select2--light rs-select2--md">
                                     <select class="js-select2" name="filter">
-                                        <option selected="selected" value="3">Phân loại</option>                                        
+                                        <option selected="selected" value="3">Phân loại</option>
                                         <option value="1">Nhân viên</option>
                                         <option value="2">Khách hàng</option>
                                     </select>
@@ -51,14 +51,14 @@
                                         <td></td>
                                         <td>
                                             <div class="table-data__info">
-                                                <h6>@item.member_id</h6>
+                                                <h6 id="id @item.member_id">@item.member_id</h6>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="table-data__info">
                                                 <h6>@item.name</h6>
                                                 <span>
-                                                    <a>@item.username</a>
+                                                    <a id="name @item.member_id">@item.username</a>
                                                 </span>
                                             </div>
                                         </td>
@@ -88,33 +88,59 @@
                                         </td>
                                         <td>
                                             <div class="table-data-feature">
-                                                <div id="sendModal" class="modal" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Customer Details Form</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <label for="message" class=" form-control-label">Send message to Member ID @item.member_id</label>
-                                                                <input type="text" id="message" placeholder="Enter message" class="form-control">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                @if (item.role != 0)
+                                                {
+                                                    <div id="sendModal" class="modal" tabindex="-1" role="dialog">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Gửi thông tin</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <label for="message" class=" form-control-label">Gửi thông tin cho người dùng</label>
+                                                                    <input type="text" id="message" placeholder="Nhap thong tin can gui" class="form-control">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Gửi</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                @if (item.role == 2)
-                                                {
                                                     <button class="item" data-toggle="modal" data-target="#sendModal" data-placement="top" title="send">
                                                         <i class="zmdi zmdi-mail-send"></i>
                                                     </button>
+                                                    if (item.role != 2)
+                                                    {
+                                                        <div id="deletemember" class="modal" tabindex="-1" role="dialog">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Xóa tài khoản</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <label for="message" class=" form-control-label">Bạn có muốn xóa tài khoản nay là không?</label>
+                                                                        <input id="delete_id" name="delete_id" disabled="disabled" type="hidden" />
+                                                                        <input id="delete_name" name="delete_name" disabled="disabled" />
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-primary" onclick="DeleteMember()">Xóa</button>
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <button class="item" data-toggle="modal" data-target="#deletemember" data-placement="top" title="Xóa" onclick="DelMem(@item.member_id)">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </button>
+                                                    }
                                                 }
-
                                             </div>
                                         </td>
                                     </tr>
@@ -133,9 +159,13 @@
     }
     else
     {
-        <h1>Bạn chưa đăng nhập, không thể xem thông tin giỏ hàng</h1>
+        <h1>Bạn phải đăng nhập bằng quyền Admin để sử dụng chức năng này</h1>
         <a href="@Url.Action("Login", null, new { area = "Sales", controller = "Login"}, Request.Url.Scheme) ">Đăng nhập ngay</a>
     }
 }
 
 
+
+<script>
+    
+</script>

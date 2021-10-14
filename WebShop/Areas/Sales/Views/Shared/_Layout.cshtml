@@ -2,20 +2,15 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
-<!-- belle/login.html   11 Nov 2019 12:22:27 GMT -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Siêu Website Vjp Pờ rồ</title>
     <meta name="description" content="description">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
     <link rel="shortcut icon" href="~/Asset/Images/logo.png" />
-    <!-- Plugins CSS -->
     <link rel="stylesheet" href="~/Asset/assets/css/plugins.css">
-    <!-- Bootstap CSS -->
     <link rel="stylesheet" href="~/Asset/assets/css/bootstrap.min.css">
-    <!-- Main Style CSS -->
     <link rel="stylesheet" href="~/Asset/assets/css/style.css">
     <link rel="stylesheet" href="~/Asset/assets/css/responsive.css">
     <script type="text/javascript" src="~/Asset/assets/js/nhat22.js"></script>
@@ -73,7 +68,7 @@
                     <!--Desktop Logo-->
                     <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
                         <a href="@Url.Action("Home", "HomeSales", new { area = "Sales" })">
-                            <img src="~/Asset/Images/Untitled.png" alt="" title="" />
+                            <img src="" alt="" title="" />
                         </a>
                     </div>
                     <!--End Desktop Logo-->
@@ -89,7 +84,7 @@
                             <!-- for mobile -->
                             <ul id="siteNav" class="site-nav medium center hidearrow">
                                 <li class="lvl1 parent megamenu">
-                                    <a href="@Url.Action("Home", null, new { area = "Sales", controller = "HomeSales"}, Request.Url.Scheme)" id="1">Trang chủ <i class="anm anm-angle-down-l"></i></a>
+                                    <a href="@Url.Action("Home", null, new { area = "Sales", controller = "HomeSales"}, Request.Url.Scheme)" >Trang chủ <i class="anm anm-angle-down-l"></i></a>
                                 </li>
                                 <li class="lvl1 parent megamenu">
                                     <a href="@Url.Action("Product", null, new { area = "Sales", controller = "ProductSales"}, Request.Url.Scheme)">Sản phẩm <i class="anm anm-angle-down-l"></i></a>
@@ -132,72 +127,81 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-4 col-sm-3 col-md-3 col-lg-2">
-                        @if (ViewBag.is_logined == 1)
-                        {
-                            <div class="site-cart">
-                                <a href="#" class="site-header__cart" title="Giỏ hàng">
-                                    <i class="icon-2x anm anm-bag-l"></i>
-                                    <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">@ViewBag.Number</span>
-                                </a>
-                                <!--Minicart Popup-->
-                                <div id="header-cart" class="block block-cart">
-                                    <ul class="mini-products-list">
-                                        @{
-                                            int sum = 0;
-                                        }
-                                        @foreach (ItemInCart item in (List<WebShop.Models.ItemInCart>)ViewBag.ItemInCart)
-                                        {
-                                            <li class="item">
-                                                <a class="product-image" href="#">
-                                                    <img src="@item.image_link" alt="@item.name" title="" />
-                                                </a>
-                                                <div class="product-details">
-                                                    <a href="@Url.Action("Remove_Item", "Cart", new { area = "Sales", product_id=@item.product_id })" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
-                                                    <a class="pName" href="cart.html">@item.name</a>                                                    
-                                                    <div class="variant-cart">Size: @item.size</div>
-                                                    <div class="wrapQtyBtn">
-                                                        <div class="qtyField">
-                                                            <span class="label">Số lượng:</span>
-                                                            <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                            <input type="text" id="Quantity" name="quantity" value="@item.qty" class="product-form__input qty">
-                                                            <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                    <div class="col-4 col-sm-3 col-md-3 col-lg-2" id="minicartpopup">
+                        <div class="mini-cart-popup">
+                            @if (ViewBag.is_logined == 1)
+                            {
+                                <div class="site-cart">
+                                    <a href="#" class="site-header__cart" title="Giỏ hàng">
+                                        <i class="icon-2x anm anm-bag-l"></i>
+                                        <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">@ViewBag.Number</span>
+                                    </a>
+                                    <!--Minicart Popup-->
+                                    <div id="header-cart" class="block block-cart">
+                                        <ul class="mini-products-list">
+                                            @{
+                                                int sum = 0;
+                                            }
+                                            @foreach (ItemInCart item in (List<WebShop.Models.ItemInCart>)ViewBag.ItemInCart)
+                                            {
+                                                <li class="item">
+                                                    @{ string m = item.product_id.ToString() + item.size; }
+                                                    <a class="product-image" href="#">
+                                                        <img src="@item.image_link" alt="@item.name" title="" />
+                                                    </a>
+                                                    <div class="product-details">
+                                                        <a href="@Url.Action("Remove_Item", "Cart", new { area = "Sales", product_id=@item.product_id, size = @item.size })" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
+                                                        <a class="pName" href="cart.html">@item.name</a>
+                                                        <div class="variant-cart">Size: @item.size</div>
+                                                        <div class="money" id="mini_price @m">@item.price</div>
+                                                        <div class="wrapQtyBtn">
+                                                            <div class="qtyField">
+                                                                <span class="label">Số lượng:</span>
+                                                                <a class="qtyBtn minus" onclick="miniminus('@m')"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
+                                                                <input type="text" id="mini_qty @m" name="quantity" value="@item.qty" class="product-form__input qty">
+                                                                <a class="qtyBtn plus" onclick="miniplus('@m')"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="priceRow">
+                                                            <div class="product-price">
+                                                                @{
+                                                                    int amount = item.price * item.qty;
+                                                                    sum = sum + amount;
+                                                                }
+                                                                <div id="mini_full_price">
+                                                                    Thành tiền:
+                                                                    <span class="mini_full_price" id="mini_full_price_ @m">@amount </span><span>VNĐ</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="priceRow">
-                                                        <div class="product-price">
-                                                            @{
-                                                                int amount = item.price * item.qty;
-                                                                sum = sum + amount;
-                                                            }
-                                                            <span class="money">Thành tiền: @amount VNĐ</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        }
-                                    </ul>
-                                    <div class="total">
-                                        <div class="total-in">
-                                            <span class="label">Tổng tạm tính:</span><span class="product-price"><span class="money">@sum  VNĐ</span></span>
-                                        </div>
-                                        <div class="buttonSet text-center">
-                                            <a href="@Url.Action("Cart", "Cart", new { area = "Sales" })" class="btn btn-secondary btn--small">View Cart</a>
-                                            <a href="checkout.html" class="btn btn-secondary btn--small">Checkout</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                        <div class="total">
+                                            <div class="total-in">
+                                                <span class="label">Tổng tạm tính:</span><span class="product-price"><span class="money" id="mini_total_price">@sum</span>VNĐ</span>
+                                            </div>
+                                            <div class="buttonSet text-center">
+                                                <a href="@Url.Action("Cart", "Cart", new { area = "Sales" })" class="btn btn-secondary btn--small">View Cart</a>
+                                                <a href="#" class="btn btn-secondary btn--small">Checkout</a>
+                                            </div>
                                         </div>
                                     </div>
+                                    <!--End Minicart Popup-->
                                 </div>
-                                <!--End Minicart Popup-->
-                            </div>
-                        }
+                            }
+                        </div>
                         <div class="site-header__search">
                             <button type="button" class="search-trigger"><i class="icon anm anm-search-l"></i></button>
                         </div>
+
                     </div>
+                   
                 </div>
             </div>
         </div>
-        <!--End Header-->
+      
         <!--Menu nhỏ -->
         <div class="mobile-nav-wrapper" role="navigation">
             <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
@@ -240,11 +244,9 @@
                 </li>
             </ul>
         </div>
-        <!--End Menu nhỏ-->
-        <!--Body Content-->
+
         @RenderBody();
-        <!--End Body Content-->
-        <!--Footer-->
+
         <footer id="footer">
             <div class="newsletter-section">
                 <div class="container">
@@ -316,7 +318,7 @@
                                     <li><i class="icon anm anm-map-marker-al"></i><p>p511 512 Tòa nhà S11,<br>HVKTQS</p></li>
                                     <li class="phone"><i class="icon anm anm-phone-s"></i><p>(+84) 987135188</p></li>
                                     <li class="email"><i class="icon anm anm-envelope-l"></i><p>lethenhatt@gmail.com</p></li>
-                                    <li class="email"><i class="icon anm anm-envelope-l"></i><p>minhhieudtrai@gmail.com</p></li>
+                                    <li class="email"><i class="icon anm anm-envelope-l"></i><p>NhoAoDo@gmail.com</p> :))</li>
                                 </ul>
                             </div>
                         </div>
@@ -345,23 +347,49 @@
                 </div>
             </div>
         </footer>
-        <!--End Footer-->
-        <!--Scoll Top-->
+
         <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
-        <!--End Scoll Top-->
-        <!-- Including Jquery -->
+
         <script src="~/Asset/assets/js/vendor/jquery-3.3.1.min.js"></script>
         <script src="~/Asset/assets/js/vendor/jquery.cookie.js"></script>
         <script src="~/Asset/assets/js/vendor/modernizr-3.6.0.min.js"></script>
         <script src="~/Asset/assets/js/vendor/wow.min.js"></script>
-        <!-- Including Javascript -->
-        <script src="~/Asset/assets/js/bootstrap.min.js"></script>
+        @*<script src="~/Asset/assets/js/bootstrap.min.js"></script>*@
         <script src="~/Asset/assets/js/plugins.js"></script>
-        <script src="~/Asset/assets/js/popper.min.js"></script>
+        @*<script src="~/Asset/assets/js/popper.min.js"></script>*@
         <script src="~/Asset/assets/js/lazysizes.js"></script>
-        <script src="~/Asset/assets/js/main.js"></script>        
+        <script src="~/Asset/assets/js/main.js"></script>       
+
     </div>
 </body>
-
-<!-- belle/login.html   11 Nov 2019 12:22:27 GMT -->
 </html>
+
+<script>
+    function miniminus(id) {
+        var qty = document.getElementById("mini_qty " + String(id)).value;
+        var x = document.getElementById("mini_price " + String(id)).innerText;
+        if (qty == 1) {
+            document.getElementById("mini_full_price_ " + String(id)).innerHTML = parseInt(x);
+        } else {
+            document.getElementById("mini_full_price_ " + String(id)).innerHTML = parseInt(x) * qty - parseInt(x);
+        }
+        var tt = document.querySelectorAll('.mini_full_price')
+        var sum = 0
+        for (let i = 0; i < tt.length; i++) {
+            sum = sum + parseInt(tt[i].innerText)
+        }
+        document.getElementById("mini_total_price").innerHTML = sum;
+    }
+
+    function miniplus(id) {
+        var qty = document.getElementById("mini_qty " + String(id)).value;
+        var x = document.getElementById("mini_price " + String(id)).innerText;
+        document.getElementById("mini_full_price_ " + String(id)).innerHTML = parseInt(x) * qty + parseInt(x);
+        var tt = document.querySelectorAll('.mini_full_price')
+        var sum = 0
+        for (let i = 0; i < tt.length; i++) {
+            sum = sum + parseInt(tt[i].innerText)
+        }
+        document.getElementById("mini_total_price").innerHTML = sum;
+    }
+</script>
